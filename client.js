@@ -29,7 +29,7 @@ var canvas = document.querySelector("canvas");
 var ctx = canvas.getContext("2d");
 
 function tilesToPicture(tileData, xsize, ysize) {
-    console.log(`Got Tiles: ${tileData.tiles}`);
+    console.log(`Got Tiles: ${JSON.stringify(tileData.tiles, null, 4)}`);
     var Tiles = tileData.tiles;
     for (var Tile in Tiles) {
         if (Tiles.hasOwnProperty(Tile)) {
