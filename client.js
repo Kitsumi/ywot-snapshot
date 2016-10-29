@@ -23,78 +23,7 @@ socket.addEventListener('open', function() {
             console.log(parsed);
         }
     }
-    socket.send(JSON.stringify({
-        "kind": "fetch",
-        'min_tileY': -18,
-        'min_tileX': -18,
-        'max_tileY': -10,
-        'max_tileX': -10,
-        'v': 3
-    }));
-    socket.send(JSON.stringify({
-        "kind": "fetch",
-        'min_tileY': -18,
-        'min_tileX': -9,
-        'max_tileY': -10,
-        'max_tileX': 9,
-        'v': 3
-    }));
-    socket.send(JSON.stringify({
-        "kind": "fetch",
-        'min_tileY': -18,
-        'min_tileX': 10,
-        'max_tileY': -10,
-        'max_tileX': 18,
-        'v': 3
-    }));
-    socket.send(JSON.stringify({
-        "kind": "fetch",
-        'min_tileY': -9,
-        'min_tileX': -18,
-        'max_tileY': 9,
-        'max_tileX': -10,
-        'v': 3
-    }));
-    socket.send(JSON.stringify({
-        "kind": "fetch",
-        'min_tileY': -9,
-        'min_tileX': -9,
-        'max_tileY': 9,
-        'max_tileX': 9,
-        'v': 3
-    }));
-    socket.send(JSON.stringify({
-        "kind": "fetch",
-        'min_tileY': -9,
-        'min_tileX': 10,
-        'max_tileY': 9,
-        'max_tileX': 18,
-        'v': 3
-    }));
-    socket.send(JSON.stringify({
-        "kind": "fetch",
-        'min_tileY': 10,
-        'min_tileX': -18,
-        'max_tileY': 18,
-        'max_tileX': -10,
-        'v': 3
-    }));
-    socket.send(JSON.stringify({
-        "kind": "fetch",
-        'min_tileY': 10,
-        'min_tileX': -9,
-        'max_tileY': 18,
-        'max_tileX': 9,
-        'v': 3
-    }));
-    socket.send(JSON.stringify({
-        "kind": "fetch",
-        'min_tileY': 10,
-        'min_tileX': 10,
-        'max_tileY': 18,
-        'max_tileX': 18,
-        'v': 3
-    }));
+    getTiles(WorldProps.xsize, WorldProps.ysize);
 });
 
 var canvas = document.querySelector("canvas");
@@ -148,4 +77,21 @@ function tilesToPicture(tileData, xmin, ymin) {
             }
         }
     }
+}
+
+function getTiles(xsize, ysize) {
+	var startX = (xsize-Math.floor(xsize/2))*18;
+	var startY = (ysize-Math.floor(ysize/2))*18;
+	for (var y = 0; y < ysize; y++) {
+		for (var x = 0; x < xsize; x++) {
+			socket.send(JSON.stringify({
+				"kind": "fetch",
+				'min_tileY': startY+(y*18),
+				'min_tileX': startX+(x*18),
+				'max_tileY': startY+(y*18)+18,
+				'max_tileX': startX+(x*18)+18,
+				'v': 3
+			}));
+		}
+	}
 }
