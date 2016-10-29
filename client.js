@@ -82,20 +82,22 @@ function tilesToPicture(tileData, xsize, ysize) {
 }
 
 function getTiles(xsize, ysize) {
-	canvas.width = (160)*(xsize*18);
-	canvas.height = (144)*(ysize*18);
-	var startX = 0-Math.floor((xsize*18)/2);
-	var startY = 0-Math.floor((ysize*18)/2);
-	for (var y = 0; y < ysize; y++) {
-		for (var x = 0; x < xsize; x++) {
-			socket.send(JSON.stringify({
-				"kind": "fetch",
-				'min_tileY': startY+(y*18),
-				'min_tileX': startX+(x*18),
-				'max_tileY': startY+(y*18)+18,
-				'max_tileX': startX+(x*18)+18,
-				'v': 3
-			}));
-		}
-	}
+    canvas.width = (160)*(xsize*18);
+    canvas.height = (144)*(ysize*18);
+    var startX = 0-Math.floor((xsize*18)/2);
+    var startY = 0-Math.floor((ysize*18)/2);
+    for (var y = 0; y < ysize; y++) {
+        for (var x = 0; x < xsize; x++) {
+            setTimeout(function(){
+                socket.send(JSON.stringify({
+                    "kind": "fetch",
+                    'min_tileY': startY+(y*18),
+                    'min_tileX': startX+(x*18),
+                    'max_tileY': startY+(y*18)+18,
+                    'max_tileX': startX+(x*18)+18,
+                    'v': 3
+                }));
+            }, ((y*3)+x)*10, y, x);
+        }
+    }
 }
