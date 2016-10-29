@@ -25,10 +25,74 @@ socket.addEventListener('open', function() {
     }
     socket.send(JSON.stringify({
         "kind": "fetch",
+        'min_tileY': -18,
+        'min_tileX': -18,
+        'max_tileY': -10,
+        'max_tileX': -10,
+        'v': 3
+    }));
+    socket.send(JSON.stringify({
+        "kind": "fetch",
+        'min_tileY': -18,
+        'min_tileX': -9,
+        'max_tileY': -10,
+        'max_tileX': 9,
+        'v': 3
+    }));
+    socket.send(JSON.stringify({
+        "kind": "fetch",
+        'min_tileY': -18,
+        'min_tileX': 10,
+        'max_tileY': -10,
+        'max_tileX': 18,
+        'v': 3
+    }));
+    socket.send(JSON.stringify({
+        "kind": "fetch",
+        'min_tileY': -9,
+        'min_tileX': -18,
+        'max_tileY': 9,
+        'max_tileX': -10,
+        'v': 3
+    }));
+    socket.send(JSON.stringify({
+        "kind": "fetch",
         'min_tileY': -9,
         'min_tileX': -9,
         'max_tileY': 9,
         'max_tileX': 9,
+        'v': 3
+    }));
+    socket.send(JSON.stringify({
+        "kind": "fetch",
+        'min_tileY': -9,
+        'min_tileX': 10,
+        'max_tileY': 9,
+        'max_tileX': 18,
+        'v': 3
+    }));
+    socket.send(JSON.stringify({
+        "kind": "fetch",
+        'min_tileY': 10,
+        'min_tileX': -18,
+        'max_tileY': 18,
+        'max_tileX': -10,
+        'v': 3
+    }));
+    socket.send(JSON.stringify({
+        "kind": "fetch",
+        'min_tileY': 10,
+        'min_tileX': -9,
+        'max_tileY': 18,
+        'max_tileX': 9,
+        'v': 3
+    }));
+    socket.send(JSON.stringify({
+        "kind": "fetch",
+        'min_tileY': 10,
+        'min_tileX': 10,
+        'max_tileY': 18,
+        'max_tileX': 18,
         'v': 3
     }));
 });
@@ -41,8 +105,8 @@ function tilesToPicture(tileData, xmin, ymin) {
     for (var Tile in Tiles) {
         if (Tiles.hasOwnProperty(Tile)) {
             var tile = Tiles[Tile];
-            var tileX = Number(Tile.split(",")[1])+9;
-            var tileY = Number(Tile.split(",")[0])+9;
+            var tileX = Number(Tile.split(",")[1])+18;
+            var tileY = Number(Tile.split(",")[0])+18;
             if (tile != null) {
                 if (tile.properties.writability == null) {
                     ctx.fillStyle = WorldProps.public;
