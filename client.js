@@ -17,7 +17,7 @@ socket.addEventListener('open', function() {
         if (parsed.kind == "tileUpdate") {
             //tilesToPicture(parsed);
         } else if (parsed.kind == "fetch") {
-            tilesToPicture(parsed);
+            tilesToPicture(parsed, WorldProps.xsize, WorldProps.ysize);
             console.log(`Got Tiles!`)
         } else {
             console.log(parsed);
@@ -29,13 +29,13 @@ socket.addEventListener('open', function() {
 var canvas = document.querySelector("canvas");
 var ctx = canvas.getContext("2d");
 
-function tilesToPicture(tileData, xmin, ymin) {
+function tilesToPicture(tileData, xsize, ysize) {
     var Tiles = tileData.tiles;
     for (var Tile in Tiles) {
         if (Tiles.hasOwnProperty(Tile)) {
             var tile = Tiles[Tile];
-            var tileX = Number(Tile.split(",")[1])+18;
-            var tileY = Number(Tile.split(",")[0])+18;
+            var tileX = Number(Tile.split(",")[1])+((xsize-Math.floor(xsize/2))*18);
+            var tileY = Number(Tile.split(",")[0])+((xsize-Math.floor(xsize/2))*18);
             if (tile != null) {
                 if (tile.properties.writability == null) {
                     ctx.fillStyle = WorldProps.public;
@@ -80,6 +80,8 @@ function tilesToPicture(tileData, xmin, ymin) {
 }
 
 function getTiles(xsize, ysize) {
+	canvas.width = (160)*(xsize*18);
+	canvas.height = (144)*(ysize*18);
 	var startX = (xsize-Math.floor(xsize/2))*18;
 	var startY = (ysize-Math.floor(ysize/2))*18;
 	for (var y = 0; y < ysize; y++) {
