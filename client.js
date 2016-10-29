@@ -15,7 +15,7 @@ socket.addEventListener('open', function() {
     socket.onmessage = function(data) {
         var parsed = JSON.parse(data.data);
         if (parsed.kind == "tileUpdate") {
-            //tilesToPicture(parsed);
+            tilesToPicture(parsed);
         } else if (parsed.kind == "fetch") {
             tilesToPicture(parsed, WorldProps.xsize, WorldProps.ysize);
         } else {
