@@ -18,6 +18,7 @@ socket.addEventListener('open', function() {
             tilesToPicture(parsed);
         } else if (parsed.kind == "fetch") {
             tilesToPicture(parsed, WorldProps.xsize, WorldProps.ysize);
+            recievedTiles++;
         } else {
             console.log(parsed);
         }
@@ -31,7 +32,6 @@ var ctx = canvas.getContext("2d");
 var recievedTiles = 0;
 function tilesToPicture(tileData, xsize, ysize) {
     console.log(`Got Tiles: ${recievedTiles}`);
-    recievedTiles++;
     var Tiles = tileData.tiles;
     for (var Tile in Tiles) {
         if (Tiles.hasOwnProperty(Tile)) {
