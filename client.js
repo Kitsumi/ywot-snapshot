@@ -28,14 +28,16 @@ socket.addEventListener('open', function() {
 var canvas = document.querySelector("canvas");
 var ctx = canvas.getContext("2d");
 
+var recievedTiles = 0;
 function tilesToPicture(tileData, xsize, ysize) {
-    console.log(`Got Tiles: ${JSON.stringify(tileData.tiles, null, 4)}`);
+    console.log(`Got Tiles: ${recievedTiles}`);
+    recievedTiles++;
     var Tiles = tileData.tiles;
     for (var Tile in Tiles) {
         if (Tiles.hasOwnProperty(Tile)) {
             var tile = Tiles[Tile];
-            var tileX = Number(Tile.split(",")[1])+((xsize-Math.floor(xsize/2))*18);
-            var tileY = Number(Tile.split(",")[0])+((xsize-Math.floor(xsize/2))*18);
+            var tileX = Number(Tile.split(",")[1])+Math.floor((xsize*18)/2);
+            var tileY = Number(Tile.split(",")[0])+Math.floor((ysize*18)/2);
             if (tile != null) {
                 if (tile.properties.writability == null) {
                     ctx.fillStyle = WorldProps.public;
