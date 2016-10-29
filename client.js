@@ -10,6 +10,8 @@ socket.onerror = (err) => {
     }
 };
 
+var recievedTiles = 0;
+
 socket.addEventListener('open', function() {
     console.log('WebSocket Client Connected');
     socket.onmessage = function(data) {
@@ -18,6 +20,7 @@ socket.addEventListener('open', function() {
             tilesToPicture(parsed);
         } else if (parsed.kind == "fetch") {
             tilesToPicture(parsed, WorldProps.xsize, WorldProps.ysize);
+            console.log(`Got Tiles: ${recievedTiles}`);
             recievedTiles++;
         } else {
             console.log(parsed);
@@ -29,9 +32,7 @@ socket.addEventListener('open', function() {
 var canvas = document.querySelector("canvas");
 var ctx = canvas.getContext("2d");
 
-var recievedTiles = 0;
 function tilesToPicture(tileData, xsize, ysize) {
-    console.log(`Got Tiles: ${recievedTiles}`);
     var Tiles = tileData.tiles;
     for (var Tile in Tiles) {
         if (Tiles.hasOwnProperty(Tile)) {
