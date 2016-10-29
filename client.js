@@ -15,7 +15,7 @@ socket.addEventListener('open', function() {
     socket.onmessage = function(data) {
         var parsed = JSON.parse(data.data);
         if (parsed.kind == "tileUpdate") {
-            tilesToPicture(parsed);
+            //tilesToPicture(parsed);
         } else if (parsed.kind == "fetch") {
             tilesToPicture(parsed, WorldProps.xsize, WorldProps.ysize);
         } else {
@@ -88,16 +88,14 @@ function getTiles(xsize, ysize) {
     var startY = 0-Math.floor((ysize*18)/2);
     for (var y = 0; y < ysize; y++) {
         for (var x = 0; x < xsize; x++) {
-            setTimeout(function(){
-                socket.send(JSON.stringify({
-                    "kind": "fetch",
-                    'min_tileY': startY+(y*18),
-                    'min_tileX': startX+(x*18),
-                    'max_tileY': startY+(y*18)+18,
-                    'max_tileX': startX+(x*18)+18,
-                    'v': 3
-                }));
-            }, ((y*3)+x)*10, y, x);
+            socket.send(JSON.stringify({
+                "kind": "fetch",
+                'min_tileY': startY+(y*18),
+                'min_tileX': startX+(x*18),
+                'max_tileY': startY+(y*18)+18,
+                'max_tileX': startX+(x*18)+18,
+                'v': 3
+            }));
         }
     }
 }
