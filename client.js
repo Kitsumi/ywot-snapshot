@@ -83,8 +83,12 @@ function tilesToPicture(tileData, xsize, ysize) {
 }
 
 function getTiles(xsize, ysize) {
-    canvas.width = (160)*(xsize*18);
-    canvas.height = (144)*(ysize*18);
+    if (canvas.width != (160)*(xsize*18)){
+        canvas.width = (160)*(xsize*18);
+    }
+    if (canvas.height != (144)*(ysize*18)){
+        canvas.height = (144)*(ysize*18);
+    }
     var startX = 0-Math.floor((xsize*18)/2);
     var startY = 0-Math.floor((ysize*18)/2);
     for (var y = 0; y < ysize; y++) {
